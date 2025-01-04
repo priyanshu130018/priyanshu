@@ -1,0 +1,1581 @@
+1:-
+#include<stdio.h>
+#include<stdlib.h>
+struct Day
+{
+    int date;
+    char *activity;
+    char *dayname;
+};
+
+void create(struct Day *d)
+{
+    d->dayname=(char*)malloc(sizeof(char)*100);
+    d->activity=(char*)malloc(sizeof(char)*100);
+
+    printf("enter the day name:");
+    scanf("%s",d->dayname);
+    printf("enter date:");
+    scanf(" %d",&d->date);
+    printf("enter the activity:");
+    scanf("%s", d->activity);
+}
+
+
+void read(struct Day *calender)
+{
+    for(int i=0;i<7;i++)
+    {
+        printf("\nDay %d\n",i+1);
+        create(&calender[i]);
+    }
+}
+void display(struct Day *calender)
+{
+    printf("\nweek detail\n");
+    for(int i = 0; i<7; i++)
+{
+	printf("\nDay %d:\nDayname: %s\nDate: %d\nActivity: %s\n", i + 1, calender[i].dayname, calender[i].date, calender[i].activity);
+}
+
+}
+void freememory(struct Day *calender)
+{
+    for(int i=0;i<7;i++)
+    {
+        free(calender[i].dayname);
+        free(calender[i].activity);
+    }
+}
+int main()
+{
+    struct Day *calender;
+
+    calender=(struct Day*)malloc(7*sizeof(struct Day));
+    if(calender==NULL)
+    {
+        printf("memory not allocated");
+        return 1;
+    }
+    
+    read(calender);
+    display(calender);
+    freememory(calender);
+    free(calender);
+    return 0;
+}
+
+2:-
+#include<stdio.h>
+#include<string.h>
+
+int main()
+{
+    char STR[100], PAT[100], REP[100], ans[100];
+    int i, j, m, k, flag = 0;
+
+    printf("\nEnter the MAIN string: \n");
+    gets(STR);
+    
+    printf("\nEnter a PATTERN string: \n");
+    gets(PAT);
+    
+    printf("\nEnter a REPLACE string: \n");
+    gets(REP);
+
+    m = i = j = 0;
+
+    while (STR[m] != '\0') 
+    {
+        
+        if (STR[m] == PAT[i])      // Checking for Match
+        {
+            m++;
+            i++;
+            flag = 1;
+
+            if (PAT[i] == '\0') 
+            {
+                             
+                for(k=0; REP[k] != '\0' ;k++, j++)    // Copy replace string in ans string
+                {
+                    
+                    ans[j] = REP[k];
+                }
+                i=0;
+                
+            }
+        } 
+                    
+        else        // Mismatch
+        { 
+            ans[j] = STR[m];
+            j++;
+            m++;
+            i=0;
+        }
+    }
+
+    if (flag == 0) 
+    {
+        printf("\nPattern doesn't found!!!\n");
+    }
+    else 
+    {
+        ans[j] = '\0';
+        printf("\nThe RESULTANT string is: %s\n", ans);
+        return 0;
+    }
+}
+
+3:-
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<math.h>
+
+#define SIZE 10
+
+int s[SIZE];
+int item,top=-1;
+
+void push();
+void pop();
+void display();
+void pali();
+
+int main()
+{
+    int ch;
+    printf("stack opertion");
+    while(1)
+    {
+        printf("\n1.push\n");
+        printf("2.pop\n");
+        printf("3.pali\n");
+        printf("4.display\n");
+        printf("5.exit\n");
+        printf("enter choice\n");
+        scanf("%d",&ch);
+
+        switch(ch)
+        {
+            case 1:push();
+            break;
+            case 2:pop();                 
+            break;
+            case 3:pali();    
+            break;
+            case 4:display();
+            break;
+            case 5:exit(0);
+    
+            default:printf("invalid");
+            
+        }
+    }
+return 0;
+}
+
+void push()
+{
+    if(top==(SIZE-1))
+    {
+        printf("stack full");
+    }
+    else
+    {
+        printf("enter number to be enterd:");
+        scanf("%d",&item);
+        s[++top]=item;
+    }
+}
+
+void pop()
+{
+    if(top==-1)
+    {
+        printf("stack is empty");
+    }
+    else
+    {
+        item=s[top--];
+        printf("the deleted item:%d\n", item); 
+    }
+
+}
+
+void pali()
+{
+    int k=0, num=0, rev=0;
+    if(top==-1)
+    {
+        printf("stack is empty");
+    }
+
+    else
+    {
+        while(top!=-1)
+        {
+            pop();
+            num = num*10 + item;
+            rev = item*pow(10,k) + rev;
+            k++;
+        }
+        printf("\nNumber formed from stack element is %d\n",num);
+        printf("\nReverse number is %d\n",rev);
+
+        if(num==rev)
+            printf("\nstack contains palindrome number\n");
+        else
+            printf("stack does not contain palindrome number\n");
+    }
+}
+
+void display()
+{
+    if(top==-1)
+    {
+       printf("stack is empty");
+    }
+
+    else
+    {
+        printf("the elements are:\n");
+        for(int i=top; i>=0; i--)
+        {
+            printf("%d\n",s[i]);
+        }
+    }
+
+}
+
+4:-
+#include <stdio.h> 
+#include <ctype.h>
+
+#define SIZE 50
+
+char s[SIZE];
+int top = -1; 
+
+void push(char x)     
+{
+	if(top==(SIZE-1))
+    {
+        printf("stack full\n");
+    }
+	else
+	{
+	    s[++top]=x;
+	}
+}
+
+int pop()    
+{
+	if(top==-1)
+    {
+        printf("stack is empty\n");
+		return-1;
+    }
+    else
+    {
+        return(s[top--]);
+	}
+}
+
+int pr(char x)   
+{
+	
+	switch (x)
+	{
+		case '#':
+				return 0; 
+		case '(': 
+				return 1;
+		case '+':
+		case '-': 
+				return 2;
+		case '*': 
+		case '/': 
+		case '%': 
+				return 3; 
+		case '^':
+				return 4;
+	}
+}
+
+void main()   
+{
+	char infix[50], postfix[50], ch, x; 
+	int i=0, j=0;
+	
+	printf("\nEnter the Infix Expression\n"); 
+	scanf("%s", infix);
+
+
+	push('#');
+	while ((ch = infix[i++])!= '\0')
+	{
+		if(ch == '(')
+			push(ch);
+
+		else if(isalnum(ch))
+			postfix[j++] = ch;
+
+		else if(ch == ')' )
+		{
+			while(s[top] != '(' ) 
+				postfix[j++] = pop();
+			    x=pop();           
+		}
+
+		else	                     
+		{
+			while(pr(s[top]) >= pr(ch))     /* Operator */
+			{ 
+				postfix[j++] = pop();
+			}
+			push(ch);
+		}
+	}
+
+	while (s[top] != '#')        
+		postfix[j++] = pop();
+
+    	postfix[j] = '\0';
+	    printf("\n\nGiven Infix Expn: %s \nPostfix Expn: %s\n", infix, postfix);
+}
+
+5:-
+#include<stdio.h>
+#include<math.h>
+#define MAX 10
+
+int stack[MAX];
+int top=-1;
+
+void push(int x)
+{
+    if(top==(MAX-1))
+    {
+        printf("\nStack overflow");
+    }
+    else
+    {
+        stack[++top]=x;
+    }
+}
+
+int pop()
+{
+    if(top==-1)
+    {
+        printf("Stack underflow");
+        return -1;
+    }
+    else
+    {
+        return(stack[top--]);
+    }
+}
+int main()
+{
+    char exp[20];
+    printf("\nEnter the infix expression:");
+    scanf("%s",exp);
+
+    int i,a,b;
+
+    for(i=0; exp[i]!='\0' ;i++)
+    {
+        if(exp[i]=='+'||exp[i]=='-'||exp[i]=='*'||exp[i]=='/'||exp[i]=='%'||exp[i]=='^')
+        {
+            a=pop();
+            b=pop();
+
+            switch(exp[i]) 
+            {
+                case '+':
+                    push(b + a);
+                break;
+
+                case '-':
+                    push(b - a);
+                break;
+
+                case '*':
+                    push(b * a);
+                break;
+
+                case '/':
+                    if(a!=0) 
+                    {
+                        push(b/a);
+                    }
+                break;
+
+                case '%':
+                    if(a!=0) 
+                    {
+                        push(b % a);
+                    } 
+                break;
+
+                case '^':
+                    push((int)pow(b, a));
+                break;
+            }
+        }
+        else
+            push(exp[i]-'0');
+    }
+    printf("\nAnswer=%d",stack[top]);
+    return 0;
+}
+
+5b:-
+#include <stdio.h>
+
+void towers(int num, char frompeg, char topeg, char auxpeg)
+{
+	if (num == 1)
+	{
+		printf("\nMove disk 1 from peg %c to peg %c", frompeg, topeg); 
+		return;
+	}
+	towers(num-1, frompeg, auxpeg, topeg);
+
+	printf("\nMove disk %d from peg %c to peg %c", num, frompeg, topeg); 
+	towers(num-1, auxpeg, topeg, frompeg);
+}
+
+int main()
+{
+	int num;
+	printf("\nEnter the number of disks:");
+	scanf("%d", &num);
+	printf("The sequence of moves involved in the Tower of Hanoi are:\n"); 
+	towers(num, 'A', 'C', 'B');
+	return 0;
+}
+
+6:-
+#include <stdlib.h>
+
+#define SIZE 5
+
+#include <stdio.h>
+int queue[SIZE];
+int front = -1, rear = -1;
+
+void enqueue() 
+{
+    int item;
+    if ((rear + 1) % SIZE == front)
+    {
+        printf("Queue Overflow\n");
+        return;
+    }
+    printf("\nenter element to be inserted:");
+    scanf("%d",&item);
+
+	if(front==-1)
+    {
+		front++;
+		rear++;
+		queue[rear]=item;
+	}
+	else
+    {
+	 	rear = (rear + 1) % SIZE;
+    	queue[rear] = item;
+	}
+
+}
+
+void dequeue()
+{
+    if (front == -1) 
+    {
+        printf("Queue Underflow\n");
+        return;
+    }
+
+    printf("Deleted element: %d\n", queue[front]);
+
+    if (front == rear)
+    { 
+        front=-1;
+        rear=-1;
+    }
+    else
+    {
+        front=(front+1)%SIZE;
+    }
+}
+
+
+void display() 
+{
+    int i;
+    if (front == -1) 
+    {
+        printf("Queue is Empty\n");
+        return;
+    }
+
+    printf("Queue elements:");
+
+    i=front;
+    do
+    {
+        printf("%d ", queue[i]);
+        i=(i+1) % SIZE;
+    } 
+    while (i !=(rear+1) % SIZE);
+    printf("\n");
+}
+
+int main()
+{
+    int choice;
+    while (1)
+    {   
+        printf("\nCircular Queue Operations\n");
+        printf("1. Enqueue\n");
+        printf("2. Dequeue\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+            
+        switch (choice)
+        {
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+    return 0;
+}
+
+7:-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Node
+{
+    char USN[11];
+    char name[20];
+    char programme[10];
+    int sem;
+    char phno[12];
+    struct Node* next;
+};
+
+struct Node *temp = NULL, *Head = NULL, *p = NULL;
+
+void print()
+{
+    printf("\nEnter USN: ");
+    scanf("%s", temp->USN);
+    printf("Enter Name: ");
+    scanf("%s", temp->name);
+    printf("Enter Programme: ");
+    scanf("%s", temp->programme);
+    printf("Enter Semester: ");
+    scanf("%d", &temp->sem);
+    printf("Enter Phone Number: ");
+    scanf("%s", temp->phno);
+}
+
+void create() 
+{
+    int i, n;
+    printf("\nEnter the number of students: ");
+    scanf("%d", &n);
+
+    for (i = 1; i <= n; i++) 
+    {
+        printf("\nEnter details for student %d", i);
+        temp = (struct Node*)malloc(sizeof(struct Node));
+
+        if (temp == NULL) 
+        {
+            printf("Memory not allocated\n");
+            exit(0);
+        }
+        print();
+        temp->next = NULL;
+
+        if (Head == NULL)
+        {
+            Head = temp;
+        }
+        else
+        {
+            p=Head;
+            while(p->next!= NULL)
+            {
+                p=p->next;
+            }
+            p->next=temp;
+        }
+    }
+}
+
+void addFront() {
+    temp = (struct Node*)malloc(sizeof(struct Node));
+    print();
+    temp->next = NULL;
+
+    if (Head == NULL) 
+    {
+        Head = temp;
+    } 
+    else 
+    {
+        temp->next = Head;      
+        Head = temp;           
+    }
+}
+
+void addRear() {
+    temp = (struct Node*)malloc(sizeof(struct Node));
+    print();
+    temp->next = NULL;
+    if (Head == NULL) 
+    {
+        Head = temp;            
+    } 
+    else 
+    {
+        p = Head;
+        while (p->next != NULL)        // Traverse
+        {                    
+            p = p->next;
+        }
+        p->next = temp;       
+    }
+}
+
+void display() 
+{
+    if (Head == NULL) 
+    {
+        printf("\nNo student data available\n");
+        return;
+    }
+
+    p = Head;
+    printf("\n--- Student List ---\n");
+    while (p != NULL) 
+    {
+        printf("USN: %s, Name: %s, Programme: %s, Semester: %d, Phone: %s\n", p->USN, p->name, p->programme, p->sem, p->phno);
+        p = p->next;
+    }
+}
+
+void deleteFront() 
+{
+    if (Head == NULL) 
+    {
+        printf("\nNo student data to delete\n");
+        return;
+    }
+
+    p = Head;
+    printf("\nDeleted student: USN %s, Name: %s", p->USN, p->name);
+    Head = Head->next;
+    free(p);
+}
+
+void deleteRear() 
+{
+    if (Head == NULL) 
+    {
+        printf("\nNo student data to delete\n");
+        return;
+    }
+
+    p = Head;
+    if (p->next == NULL)       // Only one element
+    {
+        printf("\nDeleted student: USN %s, Name: %s", p->USN, p->name);
+        free(p);
+        Head = NULL;
+    } 
+    else 
+    {
+        while (p->next->next != NULL)  // Traverse to the second last node
+        {
+            p = p->next;
+        }
+        printf("\nDeleted student: USN %s, Name: %s", p->next->USN, p->next->name);
+        free(p->next);
+        p->next = NULL;         // Make the second last node the last node
+    }
+}
+
+int main() {
+    int choice;
+        while (1) 
+        {
+        printf("\n\n*** Menu ***");
+        printf("\n1. Create Linked List");
+        printf("\n2. Add Student at the Front");
+        printf("\n3. Add Student at the Rear");
+        printf("\n4. Delete Student from the Front");
+        printf("\n5. Delete Student from the Rear");
+        printf("\n6. Display Student Data");
+        printf("\n7. Exit");
+        
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+        printf("\n");
+
+        switch (choice) 
+        {
+            case 1:
+                   create();
+            break;
+            case 2:
+                   addFront();
+            break;
+            case 3:
+                   addRear();
+            break;
+            case 4:
+                   deleteFront();
+            break;
+            case 5:
+                   deleteRear();
+            break;
+            case 6:
+                   display();
+            break;
+            case 7:
+                   exit(0);
+            default:
+                    printf("Invalid choice!\n");
+        }
+    }
+
+    printf("\nEnd of Program");
+    return 0;
+}  
+
+8:-
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node
+{
+    int SSN;
+    char name[20];
+    char dept[20];
+    char designation[20];
+    float salary;
+    char phno[11];
+    struct Node *Prev,*Next;
+};
+
+struct Node *Head=NULL,*temp=NULL,*p=NULL,*tail=NULL;
+int count;
+
+void print()
+{
+    printf("\nEnter the data:-\n");
+
+    printf("\nEnter the SSN of the employee:");
+    scanf("%d",&temp->SSN);
+    printf("\nEnter the name of the employee:");
+    scanf("%s",temp->name);
+    printf("\nEnter the department of the employee:");
+    scanf("%s",temp->dept);
+    printf("\nEnter the designation of the employee:");
+    scanf("%s",temp->designation);
+    printf("\nEnter the salary of the employee:");
+    scanf("%f",&temp->salary);
+    printf("\nEnter the phone number of the employee:");
+    scanf("%s",temp->phno);
+}
+
+void createNode()
+{
+    int n;
+    printf("\nEnter the number of employees:\n");
+    scanf("%d",&n);
+
+    for(int i=0;i<n;i++)
+    {
+        temp=(struct Node*)malloc(sizeof(struct Node));
+        if(temp==NULL)
+        {
+            printf("\nMemory not allocated!!\n");
+        }
+        print();
+        temp->Prev=NULL;
+        temp->Next=NULL;
+        count++;
+
+        if(Head==NULL)
+        {
+            Head=temp;
+            tail=temp;
+        }
+        else
+        {
+            temp->Prev=tail;
+            tail->Next=temp;
+            tail=temp;
+        }
+    }
+}
+
+void addfront()
+{
+    temp=(struct Node*)malloc(sizeof(struct Node));
+    if(temp==NULL)
+    {
+        printf("\nMemory not allocated!!\n");
+    }
+    print();
+    temp->Prev=NULL;
+    temp->Next=NULL;
+    count++;
+    
+    if(Head==NULL)
+    {
+        Head=temp;
+        tail=temp;
+    }
+    else
+    {
+        temp->Next=Head;
+        Head->Prev=temp;
+        Head=temp;
+    }
+}
+
+void addrear()
+{
+    temp=(struct Node*)malloc(sizeof(struct Node));
+    if(temp==NULL)
+    {
+        printf("\nMemory not allocated!!\n");
+    }
+
+    print();
+    temp->Prev=NULL;
+    temp->Next=NULL;
+    count++;
+    
+    if(Head==NULL)
+    {
+        Head=temp;
+        tail=temp;
+    }
+    else
+    {
+        temp->Prev=tail;
+        tail->Next=temp;
+        tail=temp;
+    }
+}
+
+void deletefront()
+{
+    if(Head==NULL)
+    {
+        printf("\nNo employee data available \n");
+    }
+    else if(Head==tail)
+    {
+        p=Head;
+        free(p);
+        Head=NULL;
+        tail=NULL;
+        count--;
+    }
+    else
+    {
+        p=Head;
+        Head=Head->Next;
+        free(p);
+        Head->Prev=NULL;
+        count--;
+    }
+}
+
+void deleterear()
+{
+    if(Head==NULL)
+    {
+        printf("\nNo employee data available \n");
+    }
+    else if(Head==tail)
+    {
+        p=tail;
+        free(p);
+        Head=NULL;
+        tail=NULL;
+        count--;
+    }
+    else
+    {
+        p=tail;
+        tail=tail->Prev;
+        free(p);
+        tail->Next=NULL;
+        count--;
+    }
+}
+
+void displayforward()
+{
+    if(Head==NULL)
+    {
+        printf("\nNo employee data available\n");
+    }
+    else
+    {
+        printf("\nThe data entered:-\n");
+        p=Head;
+        while(p!=NULL)
+        {
+            printf("\nSSN=%d\nName=%s\nDepartment=%s\nDesignation=%s\nSalary=%f\nPhone Number=%s\n",p->SSN,p->name,p->dept,p->designation,p->salary,p->phno);
+            printf("\n");
+            p=p->Next;
+        }
+        printf("\nTotal number of nodes=%d\n",count);
+    }
+}
+
+void displaybackward()
+{
+    if(Head==NULL)
+    {
+        printf("\nNo employee data available\n");
+    }
+    else
+    {
+        printf("\nThe data entered:-\n");
+        p=tail;
+        while(p!=NULL){
+            printf("\nSSN=%d\nName=%s\nDepartment=%s\nDesignation=%s\nSalary=%f\nPhone Number=%s\n",p->SSN,p->name,p->dept,p->designation,p->salary,p->phno);
+            printf("\n");
+            p=p->Prev;
+        }
+        printf("\nTotal number of nodes=%d\n",count);
+    }
+}
+
+int main()
+{
+    int choice;
+    while(1)
+    { 
+        printf("\n\n**MENU\n");
+        printf("\n1.Create node.\n");
+        printf("\n2.Insertion at front.\n");
+        printf("\n3.Insertion at back.\n");
+        printf("\n4.Deletion at front.\n");
+        printf("\n5.Deletion at back.\n");
+        printf("\n6.Display forward.\n");
+        printf("\n7.Display backward.\n");
+        printf("\n8.Exit.\n");
+        
+        printf("\nEnter your choice:\n");
+        scanf("%d",&choice);
+        printf("\n");
+
+        switch(choice)
+        {
+            case 1:
+                createNode();
+                break;
+            case 2:
+                addfront();
+                break;
+            case 3:
+                addrear();
+                break;
+            case 4:
+                deletefront();
+                printf("\nData deleted from the front!\n");
+                break;
+            case 5:
+                deleterear();
+                printf("\nData deleted from the rear!\n");
+                break;
+            case 6:
+                displayforward();
+                break;
+            case 7:
+                displaybackward();
+                break;
+            case 8:
+                exit(0);
+            default:
+                printf("\nInvalid choice!\n");
+        }
+    }
+    return 0;   
+}
+
+9:-
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+struct node
+{
+    int coff,xexp,yexp,zexp;
+    struct node *next;
+};
+
+struct node *poly=NULL,*poly1=NULL, *poly2=NULL,*temp=NULL,*p=NULL;
+
+
+struct node *createnode()
+{
+    temp=(struct node*)malloc(sizeof(struct node));
+    if(temp==NULL)
+    {
+        printf("\nMemory not allocated\n");
+    }
+
+    printf("\nEnter coff,xexp,yexp and zexp values\n");
+    scanf("%d %d %d %d",&temp->coff, &temp->xexp, &temp->yexp, &temp->zexp);
+    temp->next=NULL;
+
+    return temp;
+}
+
+void display(struct node *head)
+{
+    if(head==NULL)
+    {
+        printf("\n No linklist\n");
+    }
+    else
+    {
+        p=head;
+        do
+        {
+            if(p->coff>=0)
+            {
+                printf("+%dx^%dy^%dz^%d",p->coff,p->xexp,p->yexp,p->zexp);
+            }
+            else
+            {
+                printf("%dx^%dy^%dz^%d",p->coff,p->xexp,p->yexp,p->zexp);
+            }
+            p=p->next;
+        }
+        while(p!=head);
+    }
+}
+
+
+int evaluate(struct node *head)
+{
+    int sum=0, x,y,z;
+    printf("\nEnter value of x,y,z\n");
+    scanf("%d %d %d",&x,&y,&z);
+
+    p=head;
+    do
+    {
+        sum=sum+(p->coff*pow(x,p->xexp)*pow(y,p->yexp)*pow(z,p->zexp));
+        p=p->next;
+    }
+    while(p!=head);
+    return sum;
+}
+
+
+int main()
+{
+    int n1,n2,i;
+
+    struct node *newnode;
+    int terms = 5; 
+    int coeffs[5] = {6, -4, 3, 2, -2};
+    int xexps[5] = {2, 0, 3, 1, 1};   
+    int yexps[5] = {2, 1, 1, 5, 1};   
+    int zexps[5] = {1, 5, 1, 1, 3};   
+
+    for (int i = 0; i < terms; i++) 
+    {
+        temp = (struct node*)malloc(sizeof(struct node));
+        temp->coff = coeffs[i];
+        temp->xexp = xexps[i];
+        temp->yexp = yexps[i];
+        temp->zexp = zexps[i];
+        temp->next = NULL;
+
+        if (poly == NULL)
+        {
+            poly = temp;
+            temp->next = poly;
+        } 
+        else 
+        {
+            p = poly;
+            while (p->next!= poly) 
+            {
+                p=p->next;
+            }
+            p->next = temp;
+            temp->next = poly;
+        }
+    }
+
+    printf("\nPolynomial P(x,y,z)=");
+    display(poly);
+    int sum = evaluate(poly);
+    printf("\nValue of P(x,y,z) = %d\n", sum);
+
+
+    printf("\nEnter number of terms in poly1\n");
+    scanf("%d",&n1);
+    for(i=1;i<=n1;i++)
+    {
+        newnode=createnode();
+
+        if(poly1==NULL)
+        {
+            poly1=newnode;
+            newnode->next=poly1;
+        }
+        else
+        {
+            p=poly1;
+            while(p->next!=poly1)
+            {
+                p=p->next;
+            }
+            p->next=newnode;
+            newnode->next=poly1;
+        }
+    }
+
+    printf("\npoly1: p(x,y,z)=");
+    display(poly1);
+    int sum1=evaluate(poly1);
+    printf("\nvalue of poly1=%d",sum1);
+
+
+    printf("\nEnter number of terms in poly2\n");
+    scanf("%d",&n2);
+    for(i=1;i<=n2;i++)
+    {
+        newnode=createnode();
+        
+        if(poly2==NULL)
+        {
+            poly2=newnode;
+            newnode->next=poly2;
+        }
+        else
+        {
+            p=poly2;
+            while(p->next!=poly2)
+            {
+                p=p->next;
+            }
+            p->next=newnode;
+            newnode->next=poly2;
+        }
+    }
+
+    printf("\npoly2: p(x,y,z)=");
+    display(poly2);
+    int sum2=evaluate(poly2);
+    printf("\nvalue of poly2=%d",sum2);
+
+
+    printf("\nsum of the polynomial is=%d\n",sum1+sum2);
+    }
+
+10:-
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *left,*right;
+};
+
+struct node *createnode(int data)
+{
+    struct node *temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    if (temp==NULL)
+    {
+      printf("memory not allocated\n");
+    }
+    
+    temp->data=data;
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+
+struct node *insertnode(struct node*root,int data)
+{
+  struct node *newnode;
+  newnode=createnode(data);
+
+  if(root==NULL)
+  {
+    root=newnode;
+    return root;
+  }
+
+  if(root->data > data)
+  {
+   root->left = insertnode(root->left,data);
+  }
+  else
+  {
+    root->right=insertnode(root->right,data);
+  }
+  return root;
+}
+
+
+int searchkey(struct node *root,int KEY)
+{
+  if (root==NULL) 
+  {
+    return 0; 
+  }
+  if(root->data==KEY)
+  {
+    return 1;
+  }
+  
+  if(root->data > KEY)
+  {
+    return searchkey(root->left,KEY);
+  }
+  else
+  {
+    return searchkey(root->right,KEY);
+  }
+  return 0;
+}
+
+void inorder(struct node* root)
+{
+    if(root!=NULL)
+    {
+      inorder(root->left);
+      printf("%d ",root->data);
+      inorder(root->right);
+    }
+}
+
+void preorder(struct node* root) 
+{
+    if(root!=NULL)
+    {
+      printf("%d ",root->data);
+      preorder(root->left);
+      preorder(root->right);  
+    }
+}
+
+void postorder(struct node* root)
+{
+    if(root!=NULL)
+    {
+      postorder(root->left);
+      postorder(root->right);
+      printf("%d ",root->data);
+    }
+}
+
+int main()
+{
+  int choice,n, data, KEY;
+
+  struct node *root=NULL;
+
+  while(1)
+  {
+    printf("\n1.create BST");
+    printf("\n2.Traverse BST");
+    printf("\n3.Search Key");
+    printf("\n4.Exit");
+    printf("\nEnter your choice:");
+    scanf("%d",&choice);
+
+    switch(choice)
+    {
+      case 1:
+        printf("\nEnter the number of elements you want to enter in BST:");
+        scanf("%d",&n);
+        for(int i=1;i<=n;i++)
+        {
+          printf("\nEnter data:");
+          scanf("%d",&data);
+          root=insertnode(root,data);
+        }
+      break;
+
+      case 2:
+        printf("\nINORDER:");
+        inorder(root);
+        printf("\nPREORDER:");
+        preorder(root);
+        printf("\nPOSTORDER:");
+        postorder(root);
+      break;
+
+      case 3:
+        printf("\nEnter key which you want to search:");
+        scanf("%d",&KEY);
+
+        int flag=searchkey(root,KEY);
+        if(flag==0)
+        {
+          printf("\nKey not found\n");
+        }
+        else
+        {
+          printf("\nKey found\n");
+        }
+      break;
+
+      case 4:
+        exit(0);
+        
+      default:
+        printf("Invalid choice!\n");
+    }
+  }
+}
+
+11:-
+#include<stdio.h>
+#include<stdlib.h>
+
+int graph[20][20];
+int visited1[20],visited2[20];
+int n;
+
+void BFS(int v)
+{
+    int queue[n];
+    int front=-1,rear=-1;
+    int i,u;
+    
+    printf("%d\t",v);
+    visited1[v]=1;
+    
+    front=0;
+    rear=0;
+
+    queue[rear]=v;
+    while(front<=rear)
+    {
+        u=queue[front++];
+        for(i=0;i<n;i++)
+        {
+            if(graph[u][i]==1 && visited1[i]==0)
+            {
+                printf("%d\t",i);
+                visited1[i]=1;
+                queue[++rear]=i;
+            }
+        }
+    }
+}
+void DFS(int v)
+{
+    int i;
+    printf("%d\t",v);
+    visited2[v]=1;
+
+    for(i=0;i<n;i++)
+    {
+        if(graph[v][i]==1 && visited2[i]==0)
+        {
+            DFS(i);
+        }
+    }
+}
+
+int main()
+{
+    int choice,start;
+    printf("\nEnter number of cities:");
+    scanf("%d",&n);
+
+    printf("\nEnter adjency matrix:\n");
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%d",&graph[i][j]);
+        }
+    }
+
+    printf("\nAdjency matrix:\n ");
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            printf("%d\t",graph[i][j]);
+        }
+        printf("\n");
+    }
+
+    while(1)
+    {
+        printf("\n1.BFS\n");
+        printf("\n2.DFS\n");
+        printf("\n3.Exit");
+        printf("Enter choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+                printf("BFS : Enter starting vertex from 0 to %d :",n-1);
+                scanf("%d",&start);
+
+                printf("BFS sequence:");
+                BFS(start);
+                for(int i=0;i<n;i++)
+                {
+                    if(visited1[i]==1)
+                    {
+                        printf("\n%d is reachable\n ",i);
+                    }
+                    else
+                    {
+                        printf("\n%d is not reachable\n ",i);
+                    }
+                }
+            break;
+
+            case 2:
+                printf("DFS : Enter starting vertex from 0 to %d :",n-1);
+                scanf("%d",&start);
+
+                printf("DFS sequence:");
+                DFS(start);
+                for(int i=0;i<n;i++)
+                {
+                    if(visited2[i]==1)
+                    {
+                        printf("\n%d is reachable\n ",i);
+                    }
+                    else
+                    {
+                        printf("\n%d is not reachable\n ",i);
+                    }
+                }
+            break;
+
+            case 3:
+                exit(0);
+        }
+    }
+}
+
+12:-
+#include<stdio.h>
+#include<stdlib.h>
+
+
+int *ht, f, m, n;
+int key[20];
+int count =0;
+
+void insert(int key)
+{
+    f=key%m;
+    while(ht[f]!=-1)
+    {
+        f=(f+1)%m;
+    }
+    ht[f]=key;
+    count++;
+}
+
+void display()
+{
+    if(count==0)
+    {
+        printf("\nHash table is empty\n");
+        return;
+    }
+
+    printf("\nHash table contents are:");
+    for(int i=0;i<n;i++)
+    {
+        printf("\nT[%d]-->%d", i, ht[i]);
+    }
+    printf("\nNumber of inserted records are:%d",count);
+}
+
+
+int main()
+{
+
+    ht=(int *)malloc(m*sizeof(int));
+    if(ht==NULL)
+    {
+        printf("Memory not allocated");
+        return 1;
+    }
+
+    int i;
+    printf("\nEnter number of employees:");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        ht[i]=-1;
+    }
+
+    printf("\nEnter two digit memory (m) for hash table:");
+    scanf("%d",&m);
+
+    printf("\nEnter four digit key for N employees:\n");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&key[i]);
+    }
+
+
+    for(i=0;i<n;i++)
+    {
+        if(count==m)
+        {
+            printf("\nHash table full\n");
+            break;
+        }
+        insert(key[i]);
+    }
+    
+    display();
+    return 0;
+}
